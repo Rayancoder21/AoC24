@@ -1,11 +1,16 @@
---- Day 1: Historian Hysteria ---
+# Advent of Code 2024 - Day 1: Historian Hysteria
+
 The Chief Historian is always present for the big Christmas sleigh launch, but nobody has seen him in months! Last anyone heard, he was visiting locations that are historically significant to the North Pole; a group of Senior Historians has asked you to accompany them as they check the places they think he was most likely to visit.
 
 As each location is checked, they will mark it on their list with a star. They figure the Chief Historian must be in one of the first fifty places they'll look, so in order to save Christmas, you need to help them get fifty stars on their list before Santa takes off on December 25th.
 
 Collect stars by solving puzzles. Two puzzles will be made available on each day in the Advent calendar; the second puzzle is unlocked when you complete the first. Each puzzle grants one star. Good luck!
 
-You haven't even left yet and the group of Elvish Senior Historians has already hit a problem: their list of locations to check is currently empty. Eventually, someone decides that the best place to check first would be the Chief Historian's office.
+---
+
+## Problem Description
+
+You haven't even left yet, and the group of Elvish Senior Historians has already hit a problem: their list of locations to check is currently empty. Eventually, someone decides that the best place to check first would be the Chief Historian's office.
 
 Upon pouring into the office, everyone confirms that the Chief Historian is indeed nowhere to be found. Instead, the Elves discover an assortment of notes and lists of historically significant locations! This seems to be the planning the Chief Historian was doing before he left. Perhaps these notes can be used to determine which locations to search?
 
@@ -13,63 +18,66 @@ Throughout the Chief's office, the historically significant locations are listed
 
 There's just one problem: by holding the two lists up side by side (your puzzle input), it quickly becomes clear that the lists aren't very similar. Maybe you can help The Historians reconcile their lists?
 
+---
+
+### Example Input:
+**first coulmn:**
+3 4 2 1 3 3
+**second column:**
+4 3 5 3 9 3
+
+---
+
+### Part One(the code is in task1.py):
+
+To find out how far apart the two lists are:
+
+1. Pair up the smallest number in the left list with the smallest number in the right list, then the second-smallest left number with the second-smallest right number, and so on.
+2. Within each pair, figure out how far apart the two numbers are by calculating the absolute difference.
+3. Sum up all the distances.
+
 For example:
 
-3   4
-4   3
-2   5
-1   3
-3   9
-3   3
-Maybe the lists are only off by a small amount! To find out, pair up the numbers and measure how far apart they are. Pair up the smallest number in the left list with the smallest number in the right list, then the second-smallest left number with the second-smallest right number, and so on.
+- Pairing the smallest numbers: `1` (left) and `3` (right) → distance = `2`.
+- Second smallest: `2` and `3` → distance = `1`.
+- Next: `3` and `3` → distance = `0`.
+- And so on...
 
-Within each pair, figure out how far apart the two numbers are; you'll need to add up all of those distances. For example, if you pair up a 3 from the left list with a 7 from the right list, the distance apart is 4; if you pair up a 9 with a 3, the distance apart is 6.
+The total distance for the example input is:
+2 + 1 + 0 + 1 + 2 + 5 = 11
 
-In the example list above, the pairs and distances would be as follows:
+**Your Puzzle Answer should be: 2375403**
 
-The smallest number in the left list is 1, and the smallest number in the right list is 3. The distance between them is 2.
-The second-smallest number in the left list is 2, and the second-smallest number in the right list is another 3. The distance between them is 1.
-The third-smallest number in both lists is 3, so the distance between them is 0.
-The next numbers to pair up are 3 and 4, a distance of 1.
-The fifth-smallest numbers in each list are 3 and 5, a distance of 2.
-Finally, the largest number in the left list is 4, while the largest number in the right list is 9; these are a distance 5 apart.
-To find the total distance between the left list and the right list, add up the distances between all of the pairs you found. In the example above, this is 2 + 1 + 0 + 1 + 2 + 5, a total distance of 11!
+---
 
-Your actual left and right lists contain many location IDs. What is the total distance between your lists?
+### Part Two(the code is in task2.py):
 
-Your puzzle answer was 2375403.
+This time, instead of distances, calculate a **similarity score**:
 
---- Part Two ---
-Your analysis only confirmed what everyone feared: the two lists of location IDs are indeed very different.
+1. For each number in the left list, count how many times it appears in the right list.
+2. Multiply the number by its frequency and add it to the total similarity score.
 
-Or are they?
+For example, using the same input:
 
-The Historians can't agree on which group made the mistakes or how to read most of the Chief's handwriting, but in the commotion you notice an interesting detail: a lot of location IDs appear in both lists! Maybe the other numbers aren't location IDs at all but rather misinterpreted handwriting.
+- `3` appears `3` times in the right list → `3 * 3 = 9`.
+- `4` appears `1` time in the right list → `4 * 1 = 4`.
+- `2` and `1` do not appear in the right list → `0`.
+- Repeat for all numbers.
 
-This time, you'll need to figure out exactly how often each number from the left list appears in the right list. Calculate a total similarity score by adding up each number in the left list after multiplying it by the number of times that number appears in the right list.
+The total similarity score for the example is:
+9 + 4 + 0 + 0 + 9 + 9 = 31
 
-Here are the same example lists again:
 
-3   4
-4   3
-2   5
-1   3
-3   9
-3   3
-For these example lists, here is the process of finding the similarity score:
+**Your Puzzle Answer should be: 23082277**
 
-The first number in the left list is 3. It appears in the right list three times, so the similarity score increases by 3 * 3 = 9.
-The second number in the left list is 4. It appears in the right list once, so the similarity score increases by 4 * 1 = 4.
-The third number in the left list is 2. It does not appear in the right list, so the similarity score does not increase (2 * 0 = 0).
-The fourth number, 1, also does not appear in the right list.
-The fifth number, 3, appears in the right list three times; the similarity score increases by 9.
-The last number, 3, appears in the right list three times; the similarity score again increases by 9.
-So, for these example lists, the similarity score at the end of this process is 31 (9 + 4 + 0 + 0 + 9 + 9).
+---
 
-Once again consider your left and right lists. What is their similarity score?
+## Completion Status
 
-Your puzzle answer was 23082277.
+Both parts of this puzzle are complete! 🎉
 
-Both parts of this puzzle are complete! They provide two gold stars: **
+---
 
-At this point, you should return to your Advent calendar and try another puzzle.
+## Notes
+
+- Each part provides one gold star (`**`).
